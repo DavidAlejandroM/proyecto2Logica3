@@ -20,6 +20,7 @@ public class Grafo {
     private ArrayList<Integer> recorrido;
     private ArrayList<ArrayList<Integer>> recorridos;
     private int[] visitados;
+    private Lado[] ladosRecorrido;
 
     public Grafo(String []v) {
         vec = new Object[v.length];
@@ -381,6 +382,7 @@ public class Grafo {
     {
         int n = recorrido.length;
         String[] ladoString = new String[n-1];
+        ladosRecorrido = new Lado[n-1];
         Lado[] lados = this.lados;
         for (int i = 0; i < n-1 ; i++) 
         {
@@ -393,10 +395,66 @@ public class Grafo {
                 Lado lb = new Lado(nodoB,nodoA);
                 if (l.equals(la) || l.equals(lb)) {
                     ladoString[i] = String.valueOf(j);
+                    if (l.equals(la))
+                    {
+                        ladosRecorrido[i] = la;
+                    }
+                    else
+                    {
+                        ladosRecorrido[i] = lb;
+                    }
                 }
+                
             } 
         }
         return ladoString;
     }
+    /**
+     * obtiene los lados correspondientes al recorrido que se le ingresa,
+     * si por ejemplos se entra 0,1,2 entrega los lados 0-1, 2-1
+     * @param recorrido vector de enteros con el id del vertice
+     * @return 
+     */
+    public Lado[] lasdosRecorridoLados(int [] recorrido)
+    {
+        String[] s = rocorridoToidLados(recorrido);
+        
+        return ladosRecorrido;
+    }
     
+    /**
+     * 
+     */
+    public Object[] ladosMasCortos(int a,int b)
+    {
+        Lado[] lados;
+        obtenerCamino(a,b,0);
+        Object[] allCaminos = this.Recorridos();
+        int n = vec.length;
+        for (int i = 0; i < allCaminos.length; i++) {
+            
+            int[] camino = (int[])allCaminos[i];
+            if (n > camino.length) {
+                n = camino.length;
+            }
+        }
+        int m = 0;
+        for (int i = 0; i < allCaminos.length; i++) {
+            
+            int[] camino = (int[])allCaminos[i];
+            if (n == camino.length) {
+                m++;
+            }
+        }
+        Object[] object = new Object[m];
+        m = 0;
+        for (int i = 0; i < allCaminos.length; i++) {
+            int[] camino = (int[])allCaminos[i];
+            if (n == camino.length) {
+                object[m] = camino;
+                m++;
+            } 
+        }
+        return object;
+    }
 }

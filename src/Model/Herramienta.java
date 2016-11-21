@@ -35,5 +35,20 @@ public class Herramienta {
         }
         return s;
     }
+
+//    public String[] objetsToStrings(Object[] ladoObjects) {
+//        int n = ladoObjects.length;
+//        String[] ladosStrings = new String[n];
+//        for (int i = 0; i < n; i++) {
+//            String recorrido = "";
+//            int[] camino = (int[]) ladoObjects[i];
+//            int m = camino.length;
+//            for (int j = 0; j < m; j++) {
+//                recorrido = recorrido + String.valueOf(camino[i])+ " ";
+//            }
+//            ladosStrings[i] = recorrido;   
+//        }
+//        return ladosStrings;
+//    }
     
 }

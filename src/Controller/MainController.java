@@ -14,6 +14,9 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 import javax.swing.JFrame;
+import Model.Lado;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,6 +29,11 @@ public class MainController {
     private Herramienta herramienta;
     private Grafo grafo;
     private DrawGraph g;
+    private DrawGraph g2;
+    private int count;
+    Object[] ladoObjects;
+    
+    
     
     
     public MainController() {
@@ -36,6 +44,7 @@ public class MainController {
         this.mainFrame.setVisible(true);
         mArchi = new ManejadorArchivo();
         herramienta = new Herramienta();
+        count = -1;
     }
     
     public static void main(String[] args) {
@@ -46,7 +55,57 @@ public class MainController {
     
     public void clickElMasCorto(int nodoA, int nodoB)
     {
-        grafo.obtenerCaminos(nodoA, nodoB, 0);
+        
+        
+        count = -1;
+        ladoObjects = grafo.ladosMasCortos(nodoA, nodoB);
+        mainFrame.setEnableLast(true);
+        mainFrame.setEnableNext(true);
+        String[] s = grafo.stringRecorridos();
+        String consola = herramienta.textoTextArea(s);
+        mainFrame.setTextConsola(consola);
+        clickNext();
+    }
+    
+    public void clickNext()
+    {
+        if (count < ladoObjects.length - 1) 
+        {
+            count++;
+            pintarGrafo2();
+            mainFrame.setEnableLast(true);
+        }
+        else
+        {
+            mainFrame.setEnableNext(false);
+        }
+  
+    }
+    
+    public void clickLast()
+    {
+        if (count > 0) 
+        {
+            count--;
+            pintarGrafo2();
+            mainFrame.setEnableNext(true);
+        }
+        else
+        {
+            mainFrame.setEnableLast(false);
+        }
+    }
+    /**
+     * muestra el i-esimo recorrido en el grafo de visualizacion donde i es la
+     * count
+     */
+    private void pintarGrafo2()
+    {
+            mainFrame.removeGrafo2();
+            g2 = new DrawGraph(grafo.getIdStringsNodos(),grafo.getNombresNodo(),
+                    grafo.lasdosRecorridoLados((int[])ladoObjects[count]));      
+            mainFrame.addGrafo2(g2.showGraph());
+            mainFrame.setEnableButtons(true);
     }
     /**
      * ejecuta el metodo todos los caminos enviando el nodoA el nodoB y un 
@@ -56,18 +115,18 @@ public class MainController {
      */
     public void clickTodosLosCamino(int nodoA, int nodoB)
     {
+        count = -1;
         grafo.obtenerCaminos(nodoA, nodoB, 0);
-        
+        mainFrame.setEnableLast(true);
+        mainFrame.setEnableNext(true);
         String[] s = grafo.stringRecorridos();
         String consola = herramienta.textoTextArea(s);
         mainFrame.setTextConsola(consola);
-        Object[] ladoObjects = grafo.Recorridos();
-        String[] recorrido = grafo.rocorridoToidLados((int[])ladoObjects[0]);
+        ladoObjects = grafo.Recorridos();
+        clickNext();
+   
         
-        g.pintarRutas(recorrido);
-        mainFrame.addGrafo(g.showGraph());
         
-        mainFrame.setEnableButtons(true);
     }
     /**
      * Este mentodo crea un Grafo a partir de un archivo txt

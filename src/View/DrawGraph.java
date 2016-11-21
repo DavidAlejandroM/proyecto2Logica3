@@ -80,7 +80,7 @@ public class DrawGraph {
 
     public BasicVisualizationServer showGraph() {
         Layout<Integer, String> layout = new CircleLayout(grafo);
-        layout.setSize(new Dimension(500, 500)); // sets the initial size of the layout space
+        layout.setSize(new Dimension(250, 250)); // sets the initial size of the layout space
         // The BasicVisualizationServer<V,E> is parameterized by the vertex and edge types
         vv = new BasicVisualizationServer<Integer, String>(layout);
         vv.setPreferredSize(new Dimension(350, 350)); //Sets the viewing area size    
