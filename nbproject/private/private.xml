@@ -5,9 +5,10 @@
         <group>
             <file>file:/D:/Documents/GitHub/proyecto2Logica3/src/View/MainFrame.java</file>
             <file>file:/D:/Documents/GitHub/proyecto2Logica3/src/Model/Grafo.java</file>
-            <file>file:/D:/Documents/GitHub/proyecto2Logica3/src/Model/Vertice.java</file>
+            <file>file:/D:/Documents/GitHub/proyecto2Logica3/src/Model/SNode.java</file>
+            <file>file:/D:/Documents/GitHub/proyecto2Logica3/src/Model/Herramienta.java</file>
             <file>file:/D:/Documents/GitHub/proyecto2Logica3/src/Controller/MainController.java</file>
-            <file>file:/D:/Documents/GitHub/proyecto2Logica3/src/Model/Lado.java</file>
+            <file>file:/D:/Documents/GitHub/proyecto2Logica3/src/Model/ManejadorArchivo.java</file>
         </group>
     </open-files>
 </project-private>

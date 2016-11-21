@@ -10,24 +10,43 @@ package Model;
  * @author Alejandro
  */
 public class Lado {
-    private int costo;
-    private Vertice vi;
-    private Vertice vj;
+    private Object li;
+    private Object ld;
 
-    public Lado(Vertice vi, Vertice vj) {
-        this.vi = vi;
-        this.vj = vj;
-    }
-    
-    
-
-    public int getCosto() {
-        return costo;
+    public Lado(Object li, Object ld) {
+        this.li = li;
+        this.ld = ld;
     }
 
+    public Object getLi() {
+        return li;
+    }
+
+    public Object getLd() {
+        return ld;
+    }
+
+    public void setLi(Object li) {
+        this.li = li;
+    }
+
+    public void setLd(Object ld) {
+        this.ld = ld;
+    }
     
+    public String toString()
+    {
+        return "("+(String) li +" , "+ (String) ld+")";
+    }
     
-    
-    
-    
+    public boolean equals(Lado l)
+    {
+        if (this.li.equals(l.li) && this.ld.equals(l.ld)) {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
