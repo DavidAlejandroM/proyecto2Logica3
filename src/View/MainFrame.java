@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -69,7 +70,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(1000, 800));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setAlignmentX(0.0F);
@@ -260,6 +260,11 @@ public class MainFrame extends javax.swing.JFrame {
         jButton4.setText("El mas corto");
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton4.setEnabled(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -384,6 +389,11 @@ public class MainFrame extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    /**
+     * este metodo llama el metodo todos los caminos si se ah seleccionado
+     * el nodo a y el nodo b, si no muestra un mensaje advirtiendo
+     * @param evt 
+     */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         int n = jTextArea1.getLineCount() - 1;
         int a = -1;
@@ -402,13 +412,43 @@ public class MainFrame extends javax.swing.JFrame {
         }
         else
         {
-            
+            JOptionPane.showMessageDialog(null,"Seleciones un nodo de cada grupo");
         }
     }//GEN-LAST:event_jButton3ActionPerformed
-
+/**
+ * este metodo limpia la consola
+ * @param evt 
+ */
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         textAreaConsola.setText("");
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    /**
+     * este metodo llama el metodo de los caminos mas cortos si se ah seleccionado
+     * el nodo a y el nodo b, si no muestra un mensaje advirtiendo
+     * @param evt 
+     */
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        int n = jTextArea1.getLineCount() - 1;
+        int a = -1;
+        int b = -1;
+        for (int i = 0; i < n; i++) {
+            if (radioButtonsA[i].isSelected()) {
+                a = i;
+            }
+            if (radioButtonsB[i].isSelected()) {
+                b = i;
+            }
+        }
+        if (a != -1 && b != -1)
+        {
+            mainController.clickElMasCorto(a, b);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,"Seleciones un nodo de cada grupo");
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -440,24 +480,30 @@ public class MainFrame extends javax.swing.JFrame {
         /* Create and display the form */
         
     }
-    
-    public void setRadioButton(String[] v)
-    {
-        
-    }
-    
+    /**
+     * envia al textarea todo el texto del archivo de texto
+     * @param s 
+     */  
     public void setTextToTextArea(String s)
     {
         jTextArea1.setText(s);
     }
-    
+    /**
+     * agrega el grafo al panel jpanel9 luego lo repinta y la revalida
+     * @param vs 
+     */
     public void addGrafo(BasicVisualizationServer vs)
     {
         jPanel9.add(vs);
         jPanel9.repaint();
         jPanel9.revalidate();
     }
-    
+    /**
+     * crea todos los radio buton de los grupo de acuerdo a la cantidad de 
+     * nodos que tenga el grafo
+     * @param idStringsNodos
+     * @param nombresNodo 
+     */
     public void crearRadioButtons(String[] idStringsNodos, String[] nombresNodo) {
         int n = idStringsNodos.length;
         radioButtonsA = new JRadioButton[n];
@@ -485,15 +531,36 @@ public class MainFrame extends javax.swing.JFrame {
         panelA.revalidate();
         panelB.revalidate();
     }
+    /**
+     * envia a la consola el texto que recibe como parametro
+     * @param s 
+     */
     public void setTextConsola(String s)
     {
         textAreaConsola.setText(s);
     }
+    /**
+     * habilita o desabilita los botones de las operaciones de los caminos
+     * @param b 
+     */
     public void setEnableButtons(boolean b)
     {
         jButton4.setEnabled(b);
         jButton3.setEnabled(b);
     }
+    /**
+     * limpia los paneles donde van los radio buttons para que pueda enviarle
+     * nuevos botones
+     */
+    public void limpiarPanel() {
+        panelA.removeAll();
+        panelB.removeAll();
+        panelA.repaint();
+        panelB.repaint();
+        panelA.revalidate();
+        panelB.revalidate();
+    }
+    
     private JRadioButton[] radioButtonsA;
     private JRadioButton[] radioButtonsB;
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -523,14 +590,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea textAreaConsola;
     // End of variables declaration//GEN-END:variables
 
-    public void limpiarPanel() {
-        panelA.removeAll();
-        panelB.removeAll();
-        panelA.repaint();
-        panelB.repaint();
-        panelA.revalidate();
-        panelB.revalidate();
-    }
+    
 
     
 }

@@ -362,11 +362,41 @@ public class Grafo {
                 s[j] = nombreIterator.next();
                 j++;
             }
+            j=0;
             object[i] = s;
             i++;
         }
           
         return object;
+    }
+    
+    /**
+     * me retorna el id del los lados del recorrido en un vector string
+     * @param recorrido contiene en un arreglo de enteros los vertices del
+     * recorrido
+     * @return retorna un vector de strings con los ids de los lados del 
+     * recorrido
+     */
+    public String[] rocorridoToidLados(int [] recorrido)
+    {
+        int n = recorrido.length;
+        String[] ladoString = new String[n-1];
+        Lado[] lados = this.lados;
+        for (int i = 0; i < n-1 ; i++) 
+        {
+            int nodoA = recorrido[i];
+            int nodoB = recorrido[i+1];
+            for (int j = 0; j < lados.length; j++) 
+            {
+                Lado l = this.lados[j];
+                Lado la = new Lado(nodoA,nodoB);
+                Lado lb = new Lado(nodoB,nodoA);
+                if (l.equals(la) || l.equals(lb)) {
+                    ladoString[i] = String.valueOf(j);
+                }
+            } 
+        }
+        return ladoString;
     }
     
 }

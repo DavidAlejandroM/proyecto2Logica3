@@ -39,10 +39,21 @@ public class MainController {
     }
     
     public static void main(String[] args) {
+        
         MainController mController = new MainController();
        
     }
     
+    public void clickElMasCorto(int nodoA, int nodoB)
+    {
+        grafo.obtenerCaminos(nodoA, nodoB, 0);
+    }
+    /**
+     * ejecuta el metodo todos los caminos enviando el nodoA el nodoB y un 
+     * contador en cero (0) muestra los recorrido en consola
+     * @param nodoA
+     * @param nodoB 
+     */
     public void clickTodosLosCamino(int nodoA, int nodoB)
     {
         grafo.obtenerCaminos(nodoA, nodoB, 0);
@@ -50,10 +61,13 @@ public class MainController {
         String[] s = grafo.stringRecorridos();
         String consola = herramienta.textoTextArea(s);
         mainFrame.setTextConsola(consola);
-        consola = "";
-        for (int i = 0; i < s.length; i++) {
-            System.out.println(s[i]);
-        }
+        Object[] ladoObjects = grafo.Recorridos();
+        String[] recorrido = grafo.rocorridoToidLados((int[])ladoObjects[0]);
+        
+        g.pintarRutas(recorrido);
+        mainFrame.addGrafo(g.showGraph());
+        
+        mainFrame.setEnableButtons(true);
     }
     /**
      * Este mentodo crea un Grafo a partir de un archivo txt
