@@ -43,9 +43,17 @@ public class MainController {
        
     }
     
-    public void clickTodosLosCamino(String nodoA, String nodoB)
+    public void clickTodosLosCamino(int nodoA, int nodoB)
     {
+        grafo.obtenerCaminos(nodoA, nodoB, 0);
         
+        String[] s = grafo.stringRecorridos();
+        String consola = herramienta.textoTextArea(s);
+        mainFrame.setTextConsola(consola);
+        consola = "";
+        for (int i = 0; i < s.length; i++) {
+            System.out.println(s[i]);
+        }
     }
     /**
      * Este mentodo crea un Grafo a partir de un archivo txt
@@ -61,10 +69,12 @@ public class MainController {
         
         grafo = new Grafo(lineas);
         grafo.imprimirGrafo();
-        grafo.obtenerCaminos(0, 5, 0);
+        
         mainFrame.limpiarPanel();
         mainFrame.setTextToTextArea(herramienta.textoTextArea(lineas));
         mainFrame.crearRadioButtons(grafo.getIdStringsNodos(),grafo.getNombresNodo());
+        
+        
         
         
         g = new DrawGraph(grafo.getIdStringsNodos(),grafo.getNombresNodo(),grafo.getLados());

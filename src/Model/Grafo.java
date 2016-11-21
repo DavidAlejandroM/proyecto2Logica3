@@ -19,6 +19,7 @@ public class Grafo {
     private int [][] adya;
     private ArrayList<Integer> recorrido;
     private ArrayList<ArrayList<Integer>> recorridos;
+    private int[] visitados;
 
     public Grafo(String []v) {
         vec = new Object[v.length];
@@ -59,7 +60,17 @@ public class Grafo {
             }
         }
     }
-
+    
+    /**
+     * este metodo me valida  si el tamaño de las palabras tien una diferencia
+     * mayor a uno devuelve falso, si es igual pero difieron en mas de 1 letra,
+     * falso, si alguno de los dos nodos tiene una letra mas el principio de la
+     * palabra debe ser la misma la unica letra que puede cambiar es la ultima
+     * en la palabra de mayor longitud
+     * @param nodo1
+     * @param nodo2
+     * @return 
+     */
     private boolean comparar(String nodo1, String nodo2) {
         int tam1 = nodo1.length();
         int tam2 = nodo2.length();
@@ -237,9 +248,26 @@ public class Grafo {
             return false;
         }
     }
-
-    int[] visitados;
+/**
+ * esta funcion reinicia los arraysList que contiene la informacion de los camino
+ * @param a nodo a
+ * @param b nodo b
+ * @param count contador que siempre debe ir en cero
+ */
     public void obtenerCaminos(int a, int b, int count)
+    {
+        recorrido = new ArrayList<Integer>();
+        recorridos = new ArrayList<ArrayList<Integer>>();
+        obtenerCamino(a, b, 0);
+    }
+   
+    /**
+     * Con este metodo se obtienen todos los caminos de un nodo a a un nodo b
+     * @param a
+     * @param b
+     * @param count siempre enviar en 0
+     */
+    private void obtenerCamino(int a, int b, int count)
     {   
         count++;
         recorrido.add(a);
@@ -254,13 +282,14 @@ public class Grafo {
                 int i = (int) p.getData();
                 if (visitados[i] == 0 ) {
                     if (i == b) {
-                        //guardarRecorrido(i);
+                        
                         recorrido.add(i);
-                        recorridos.add(recorrido);
+                        guardarRecorrido();
+                        recorrido.remove(count);
                     }
                     else
                     {
-                        obtenerCaminos(i, b, count);
+                        obtenerCamino(i, b, count);
                     }   
                 }
 
@@ -275,35 +304,69 @@ public class Grafo {
               
     }
 
-    
-    private void guardarRecorrido(int b)
+    /**
+     * este metodo crea un nuevo array list para hacer una copia y guardarlo en
+     * el arrayList de arrayList
+     */
+    private void guardarRecorrido()
     {
-        int n = 0;
-        String s = "";
-        String[] recorrido;
-        for (int i = 0; i < visitados.length; i++) {
-            if (visitados[i] == 1) {
-                n++;
-            }
-        }
-        recorrido = new String[n+1];
-        n = 0;
-        for (int i = 0; i < visitados.length; i++) {
-            if(visitados[i] == 1)
+        ArrayList<Integer> arra = new ArrayList<Integer>();
+        Iterator<Integer> nombreIterator = recorrido.iterator();
+            while(nombreIterator.hasNext())
             {
-                recorrido[n] = String.valueOf(i);
-                n++;
-                s = s + String.valueOf(i)+" - ";
+                arra.add(nombreIterator.next());
             }
-        }
-        recorrido[n+1] = String.valueOf(b);
-        System.out.println(s + String.valueOf(b));
+            recorridos.add(arra);
     }
-    
-    private void crearMatrizAdyacencia()
+    /**
+     * este metodo genera todos los recorridos en un array de string donde cada
+     * recorrido es un string
+     * @return 
+     */
+    public String[] stringRecorridos()
     {
-        
+        String[] strings = new String[recorridos.size()];
+        int i = 0;
+        Iterator<ArrayList<Integer>> iterator = recorridos.iterator();
+        while (iterator.hasNext()) {
+            ArrayList<Integer> ar = iterator.next();
+            Iterator<Integer> nombreIterator = ar.iterator();
+            String s = "";
+            while(nombreIterator.hasNext())
+            {
+                s = s + String.valueOf(nombreIterator.next()) +"  ";
+            }
+            strings[i] = s;
+            i++;
+        }
+          
+        return strings;
     }
-    
+    /**
+     * este metodo convierte los recorrido a un vector de objetos y cada
+     * este en cada posicion tiene un vector con el recorrido
+     * @return 
+     */
+    public Object[] Recorridos()
+    {
+        Object[] object = new Object[recorridos.size()];
+        int i = 0;
+        int j = 0;
+        Iterator<ArrayList<Integer>> iterator = recorridos.iterator();
+        while (iterator.hasNext()) {
+            ArrayList<Integer> ar = iterator.next();
+            Iterator<Integer> nombreIterator = ar.iterator();
+            int[] s = new int[ar.size()];
+            while(nombreIterator.hasNext())
+            {
+                s[j] = nombreIterator.next();
+                j++;
+            }
+            object[i] = s;
+            i++;
+        }
+          
+        return object;
+    }
     
 }
