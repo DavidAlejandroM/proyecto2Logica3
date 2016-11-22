@@ -19,7 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ *  @author Yaqueline
  * @author Alejandro
  */
 public class MainController {
@@ -52,7 +52,13 @@ public class MainController {
         MainController mController = new MainController();
        
     }
-    
+    /**
+     * se llama cuando se da en el boton de el mas corto y obtiene de la 
+     * clase grafos el recorrido o los recorridos mas cortos y los envia
+     * al panel de visualizacion
+     * @param nodoA
+     * @param nodoB 
+     */
     public void clickElMasCorto(int nodoA, int nodoB)
     {
         
@@ -66,7 +72,9 @@ public class MainController {
         mainFrame.setTextConsola(consola);
         clickNext();
     }
-    
+    /**
+     * metodo que cambia el grafo para mostrar el recorrido siguiente
+     */
     public void clickNext()
     {
         if (count < ladoObjects.length - 1) 
@@ -76,12 +84,19 @@ public class MainController {
             mainFrame.setEnableLast(true);
         }
         else
-        {
+        {   
+            if(grafo.Recorridos().length == 0)
+            {
+                mainFrame.removeGrafo2();
+            }
+            
             mainFrame.setEnableNext(false);
         }
   
     }
-    
+    /**
+     * metodo que cambia el grafo para mostrar el recorrido anterior
+     */
     public void clickLast()
     {
         if (count > 0) 

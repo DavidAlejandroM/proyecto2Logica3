@@ -8,8 +8,9 @@ import Model.SNode;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+
 /**
- *
+ *  @author Yaqueline
  * @author Alejandro
  */
 public class Grafo {
@@ -428,6 +429,8 @@ public class Grafo {
     public Object[] ladosMasCortos(int a,int b)
     {
         Lado[] lados;
+        recorrido = new ArrayList<Integer>();
+        recorridos = new ArrayList<ArrayList<Integer>>();
         obtenerCamino(a,b,0);
         Object[] allCaminos = this.Recorridos();
         int n = vec.length;

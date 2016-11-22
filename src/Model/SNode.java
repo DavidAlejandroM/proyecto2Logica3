@@ -1,5 +1,11 @@
 package Model;
 
+
+/**
+ *  @author Yaqueline
+ * @author Alejandro
+ */
+
 public class SNode {
 
     private SNode link;

@@ -18,9 +18,10 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 /**
- *
- * @author davida.marin
+ *  @author Yaqueline
+ * @author Alejandro
  */
 public class ManejadorArchivo {
 

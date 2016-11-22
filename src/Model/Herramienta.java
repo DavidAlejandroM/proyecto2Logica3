@@ -5,8 +5,9 @@
  */
 package Model;
 
+
 /**
- *
+ *  @author Yaqueline
  * @author Alejandro
  */
 public class Herramienta {

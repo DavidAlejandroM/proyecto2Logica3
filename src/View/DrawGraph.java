@@ -20,8 +20,9 @@ import javax.swing.JFrame;
 import org.apache.commons.collections15.Transformer;
 import sun.security.pkcs11.wrapper.CK_MECHANISM_INFO;
 
+
 /**
- *
+ *  @author Yaqueline
  * @author Alejandro
  */
 public class DrawGraph {
@@ -48,28 +49,17 @@ public class DrawGraph {
         pintarRutas(null);
     }
 
-    private boolean validarArista(String arista, String []l) {
-                if (l != null) {
-                    for (int i = 0; i < l.length; i++) {
-                        if (arista.equals(String.valueOf(i))) {
-                            return true;
-                        }
-                    }
-                }
-
-                return false;
-            }
-
+   
+/**
+ * pinta las aristas de color negro
+ * @param l 
+ */
     public void pintarRutas(final String[] l) {
         
         edgeTransformer = new Transformer<String, Paint>() {
             @Override
             public Paint transform(String i) {
-                System.out.println(l);
-                if (validarArista(i,l)) {
-                    return Color.GREEN;
-                }
-
+               
                 return Color.BLACK;
             }
             
@@ -77,7 +67,10 @@ public class DrawGraph {
         int i = 0;
 
         }
-
+/**
+ * pinta el grafo en el layout
+ * @return 
+ */
     public BasicVisualizationServer showGraph() {
         Layout<Integer, String> layout = new CircleLayout(grafo);
         layout.setSize(new Dimension(250, 250)); // sets the initial size of the layout space
@@ -93,7 +86,10 @@ public class DrawGraph {
 
         return vv;
     }
-
+/**
+ * inicializa los vertices del grafo que se va a dibubar 
+ * @param vertices 
+ */
     public void initVertices(String[] vertices) {
         for (int i = 0; i < idNodos.length; i++) {
             grafo.addVertex(idNodos[i] + " - " + nombreNodos[i]);
@@ -103,7 +99,9 @@ public class DrawGraph {
         grafo.addVertex("3");*/
 
     }
-
+/**
+ * inicializa las aristas del grafo que se va a dibujar
+ */
     public void initAristas() {
         for (int i = 0; i < lados.length; i++) {
             String liString = lados[i].getLi().toString();
